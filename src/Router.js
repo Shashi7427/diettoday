@@ -48,44 +48,44 @@ function BottomTabPages() {
 
 const Router = () => {
   const [userSession, setUserSession] = useState();
-  const [userInfo, setUserInfo] = useState(false);
+  const [userInfo, setUserInfo] = useState(true);
   const [firstLogin, setFirstLogin] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // It checks if the user has the first login and is logged in to make the correct redirects.
-    auth().onAuthStateChanged(user => {
-      setUserSession(user);
-      if (user) {
-        const userId = user.uid;
-        database()
-          .ref(`/users/${userId}/userInfo`)
-          .once('value')
-          .then(snapshot => {
-            if (snapshot.exists()) {
-              setUserInfo(true);
-              setFirstLogin(false);
-            }
-            setLoading(false);
-          })
-          .catch(error => {
-            showMessage({
-              message: 'An error occured!' + error,
-              type: 'danger',
-              floating: true,
-            });
-            setLoading(false);
-          });
-      } else {
-        setFirstLogin(true);
-        setLoading(false);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   // It checks if the user has the first login and is logged in to make the correct redirects.
+  //   auth().onAuthStateChanged(user => {
+  //     setUserSession(user);
+  //     if (user) {
+  //       const userId = user.uid;
+  //       database()
+  //         .ref(`/users/${userId}/userInfo`)
+  //         .once('value')
+  //         .then(snapshot => {
+  //           if (snapshot.exists()) {
+  //             setUserInfo(true);
+  //             setFirstLogin(false);
+  //           }
+  //           setLoading(false);
+  //         })
+  //         .catch(error => {
+  //           showMessage({
+  //             message: 'An error occured!' + error,
+  //             type: 'danger',
+  //             floating: true,
+  //           });
+  //           setLoading(false);
+  //         });
+  //     } else {
+  //       setFirstLogin(true);
+  //       setLoading(false);
+  //     }
+  //   });
+  // }, []);
 
-  if (loading) {
-    return <Loading />;
-  }
+  // if (loading) {
+  //   return <Loading />;
+  // }
 
   return (
     <NavigationContainer>
